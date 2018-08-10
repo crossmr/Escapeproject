@@ -19,6 +19,7 @@ UGrabber::UGrabber()
 }
 
 
+
 // Called when the game starts
 void UGrabber::BeginPlay()
 {
@@ -26,6 +27,33 @@ void UGrabber::BeginPlay()
 	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty"));
 	
 	/// Look for attached physics handler
+	
+	///check if the physics handler is attached
+	PhysicsHandleChecker();
+	///check if the input component is attached
+	CharacterInputChecker();
+	
+}
+
+void UGrabber::CharacterInputChecker()
+{
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		//if input component is attached
+		UE_LOG(LogTemp, Warning, TEXT("Character Input Component found on %s"), *GetOwner()->GetName())
+			///Bind input action
+			InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+	}
+	else
+	{
+		//if input component is not detected
+		UE_LOG(LogTemp, Error, TEXT("Character Input Component not found on %s"), *GetOwner()->GetName())
+	}
+}
+
+void UGrabber::PhysicsHandleChecker()
+{
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 	if (PhysicsHandle)
 	{
@@ -37,6 +65,10 @@ void UGrabber::BeginPlay()
 		//if physics handle not found
 		UE_LOG(LogTemp, Error, TEXT("Physics Handle not found on %s"), *(GetOwner()->GetName()))
 	}
+}
+
+void  UGrabber::Grab() {
+
 }
 
 

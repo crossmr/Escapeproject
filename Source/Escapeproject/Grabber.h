@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -21,6 +22,12 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void CharacterInputChecker();
+
+	void PhysicsHandleChecker();
+
+	void PhysicsHandleCheck();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -30,6 +37,10 @@ private:
 	float Reach = 100.f;
 
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
+	
+	//Ray-cast and grab what's in reach
+	void Grab();
 
 	
 };
