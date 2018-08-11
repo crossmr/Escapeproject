@@ -27,6 +27,8 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	
+
 private:
 	//How far ahead of the player can we reach in cm
 	float Reach = 100.f;
@@ -47,6 +49,15 @@ private:
 
 	//Return hit for first physics body in reach
 	const FHitResult GetFirstPhysicsBodyInReach();
+
+	//Returns current reach line
+	FVector GetPlayerReachLocation();
+
+	//Return Player reach start
+	FVector GetPlayerReachStart();
+
+	
+	FVector LineTraceEnd;
 
 
 		
