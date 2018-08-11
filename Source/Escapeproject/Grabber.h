@@ -22,11 +22,6 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	void CharacterInputChecker();
-
-	void PhysicsHandleChecker();
-
-	void PhysicsHandleCheck();
 
 public:	
 	// Called every frame
@@ -44,5 +39,15 @@ private:
 	//release what is grabbed
 	void Release();
 
-	
+	//setup input handler
+	void CharacterInputChecker();
+
+	//verify physics handler component is attached
+	void PhysicsHandleChecker();
+
+	//Return hit for first physics body in reach
+	const FHitResult GetFirstPhysicsBodyInReach();
+
+
+		
 };
