@@ -44,6 +44,7 @@ void UGrabber::CharacterInputChecker()
 		UE_LOG(LogTemp, Warning, TEXT("Character Input Component found on %s"), *GetOwner()->GetName())
 			///Bind input action
 			InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+			InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
 	}
 	else
 	{
@@ -68,7 +69,11 @@ void UGrabber::PhysicsHandleChecker()
 }
 
 void  UGrabber::Grab() {
+	UE_LOG(LogTemp, Warning, TEXT("Grabbed"))
+}
 
+void UGrabber::Release() {
+	UE_LOG(LogTemp, Warning, TEXT("Released"))
 }
 
 
