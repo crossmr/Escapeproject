@@ -4,6 +4,8 @@
 #include "Gameframework/Actor.h"
 #include "GameframeWork/PlayerController.h"
 #include "Engine/World.h"
+#include "Components/PrimitiveComponent.h"
+#include "Containers/Array.h"
 
 #define OUT
 
@@ -45,7 +47,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// poll the trigger volume
-	if (GetTotalMassOfActorsOnPlate() > 50.f) //TODO make into a parameter
+	if (GetTotalMassOfActorsOnPlate() > 30.f) //TODO make into a parameter
 	{
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
@@ -67,7 +69,13 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 	//find all overlapping actors
 	TArray<AActor*> OverLappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverLappingActors);
+
 	//iterate through them adding their masses
-	
+	for (const auto* Actor : OverLappingActors)
+	{
+		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		UE_LOG(LogTemp, Warning, TEXT("Item Name %s"), *Actor->GetName())
+	}
+
 	return TotalMass;
 }
