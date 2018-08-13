@@ -27,7 +27,9 @@ void UOpenDoor::BeginPlay()
 
 	
 	Owner = GetOwner();
-		
+	if (!PressurePlate) {
+		UE_LOG(LogTemp, Error, TEXT("Pressure Plate not set on %s"), *GetOwner()->GetName())
+	}
 
 }
 
@@ -64,8 +66,13 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate()
 {
+	//Checks pressure plate pointer and returns if not set
+	
+
 	float TotalMass = 0.f;
 
+	if (!PressurePlate) { return TotalMass; }
+	
 	//find all overlapping actors
 	TArray<AActor*> OverLappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverLappingActors);
