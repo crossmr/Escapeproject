@@ -5,7 +5,10 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Engine/TriggerVolume.h"
+#include "Delegates/Delegate.h"
 #include "OpenDoor.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
 
 
 
@@ -28,6 +31,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UPROPERTY(BLUEPRINTASSIGNABLE)
+		FOnOpenRequest OnOpenRequest;
+
 
 private:
 	UPROPERTY(VisibleAnywhere)	
